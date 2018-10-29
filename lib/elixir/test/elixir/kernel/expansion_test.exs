@@ -1657,21 +1657,6 @@ defmodule Kernel.ExpansionTest do
       end
     end
 
-    test "raises if the only clause other than do is else" do
-      assert_raise CompileError, ~r"\"else\" can't be used as the only clause", fn ->
-        code =
-          quote do
-            try do
-              :ok
-            else
-              other -> other
-            end
-          end
-
-        expand(code)
-      end
-    end
-
     test "expects at most one clause" do
       assert_raise CompileError, ~r"duplicated :do clauses given for \"try\"", fn ->
         expand(quote(do: try(do: e, do: f)))
